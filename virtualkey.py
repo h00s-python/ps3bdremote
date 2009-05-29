@@ -97,7 +97,7 @@ class VirtualKey:
             for key_code in key_codes:
                 self.key_emulator.press_keysym(key_code)
         else:
-            self.key_emulator.press_keysym(0)
+            self.key_emulator.press_keysym(key_codes)
 
     def release_key(self, key_codes):
         key_codes = self.convert_key(key_codes)
@@ -108,8 +108,13 @@ class VirtualKey:
             self.key_emulator.release_keysym(key_codes)
 
     def toggle_key(self, key_codes):
-        #todo
-        pass
+        key_codes = self.get_key_code(key_codes)
+        if key_codes in self.toggled_keys:
+            self.release_key(key_codes)
+            self.toggled_keys.remove(key_codes)
+        else:
+            self.hold_key(key_codes)
+            self.toggled_keys.append(key_codes)
 
     def press_key(self, key_codes):
         self.hold_key(key_codes)
