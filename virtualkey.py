@@ -76,7 +76,7 @@ class VirtualKey:
             if self.keys.has_key(key.lower()):
                 return self.keys[key.lower()]
             else:
-                if len(key) > 0:
+                if len(key) > 1:
                     return 0
                 else:
                     return ord(key)
